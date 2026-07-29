@@ -27,25 +27,33 @@ sleeptracker.onsubmit = function (e) {
 
 
 displaysleepHistory = () => {
-    const result = sleepData.map(function (sleepData) {
+    const result = sleepData.map(function (sleepDataDay, index) {
+      
         return `<tr>
-          <td>${sleepData.day}</td>
-          <td>${sleepData.date}</td>
-          <td>${sleepData.quality}</td>
+          <td>${sleepDataDay.day}</td>
+          <td>${sleepDataDay.date}</td>
+          <td>${sleepDataDay.quality}</td>
+          <td><button  class="removebutton btn btn-danger" onclick="removeSleepDay(${index})" >remove</button></td>
         </tr>`
     });
 
-    console.log(result);
 
-    let datatable = document.querySelector('.data').innerHTML = result.join('');
+
+    document.querySelector('.data').innerHTML = result.join('');
+
+
+}
+
+const removeSleepDay = (index) => {
+    sleepData.splice(index, 1);
+    localStorage.setItem("sleepData", JSON.stringify(sleepData));
+    displaysleepHistory();
 
 
 }
 
 
 
-
 displaysleepHistory();
-
 
 
